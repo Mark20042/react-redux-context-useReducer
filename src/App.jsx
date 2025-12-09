@@ -2,9 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMovie } from "./store/movies";
 import { setType, fetchUsers, fetchOneUser } from "./store/users";
 import { useState, useEffect } from "react";
+
+//component
+import DisplayUsers from "./DisplayUsers";
+import DisplayNumbers from "./DisplayNumbers";
+import DisplayPosts from "./DisplayPosts";
 const App = () => {
   const [types, setTypes] = useState([]);
   const [movie, setMovie] = useState([]);
+  const [id, setId] = useState([]);
   // Access movies from the Redux store
   const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.users);
@@ -38,7 +44,7 @@ const App = () => {
   };
 
   const handlegetOneUser = () => {
-    dispatch(fetchOneUser({ id: 12 }));
+    dispatch(fetchOneUser({ id }));
   };
 
   // console.log(user);
@@ -85,8 +91,17 @@ const App = () => {
       </ul>
       <br />
       <br />
+      <input
+        type="text"
+        placeholder="User ID"
+        onChange={(e) => setId(e.target.value)}
+      />
       <button onClick={handlegetOneUser}>Get One User</button>
       {oneUser ? <h2>{oneUser.name}</h2> : <h2>{error}</h2>}
+
+      <DisplayUsers />
+      <DisplayNumbers />
+      <DisplayPosts />
     </div>
   );
 };
